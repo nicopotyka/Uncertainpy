@@ -3,7 +3,7 @@ import numpy as np
 import gurobipy as gp
 
 from gurobipy import GRB
-from proBabble.probability.distribution import ProbabilityDist
+from uncertainpy.probability.distribution import ProbabilityDist
 
 class ProbEntailmentEngine:
 
@@ -130,16 +130,12 @@ class ProbEntailmentEngine:
         self.model.setObjective(A @ self.x, GRB.MINIMIZE)
         self.model.optimize()
         query.l = self.model.objVal
-        pl = self.x.X
-        print(self.x.X)
-        #print(pl)
+        #pl = ProbabilityDist(self.ints, self.x.X[:self.noWorlds]/self.x.X[-1])
         
         self.model.setObjective(A @ self.x, GRB.MAXIMIZE)
         self.model.optimize()
         query.u = self.model.objVal
         print(f"kb |= {query}")
-        pu = self.x.X
-        #print(pu)
+        #pu = ProbabilityDist(self.ints, self.x.X[:self.noWorlds]/self.x.X[-1])
         
-        return (ProbabilityDist(self.ints, pl[:self.noWorlds]/pl[-1]), ProbabilityDist(self.ints, pu[:self.noWorlds]/pu[-1]))
-        #return query
+        return query

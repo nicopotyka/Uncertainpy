@@ -1,4 +1,4 @@
-from proBabble.propositional.syntax import Formula
+from uncertainpy.propositional.syntax import Formula
   
 
 class BooleanInterpretation:

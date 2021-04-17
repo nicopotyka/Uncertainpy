@@ -1,6 +1,6 @@
-from proBabble.propositional.semantics import BooleanInterpretation
-from proBabble.propositional.syntax import Formula
-from proBabble.propositional.syntax import Conditional
+from uncertainpy.propositional.semantics import BooleanInterpretation
+from uncertainpy.propositional.syntax import Formula
+from uncertainpy.propositional.syntax import Conditional
 
 class ProbabilityDist:
 
