@@ -1,5 +1,28 @@
 import os
 import re
+import string
+
+class Attack:
+    def __init__(self, attacker, attacked) -> None:
+        self.attacker = attacker
+        self.attacked = attacked
+    
+    def get_attacker(self):
+        return self.attacker
+
+    def get_attacked(self):
+        return self.attacked
+
+class Support:
+    def __init__(self, supporter, supported) -> None:
+        self.supporter = supporter
+        self.supported = supported
+    
+    def get_supporter(self):
+        return self.supporter
+
+    def get_supported(self):
+        return self.supported
 
 class Argument:
     def __init__(self, name, initial_weight, strength=None, attackers=[], supporters=[]) -> None:
@@ -15,6 +38,12 @@ class Argument:
     def get_name(self):
         return self.name
 
+    def add_attacker(self, attacker):
+        self.attackers.append(attacker)
+        
+    def add_supporter(self, supporter):
+        self.supporters.append(supporter)
+
 class BAG:
     # {Name: Argument}
     arguments = {}
@@ -27,27 +56,37 @@ class BAG:
         with open(os.path.abspath(path), "r") as f:
             for line in f.readlines():
                 k_name = line.split("(")[0]
-                k_args = re.findall(rf"{k_name}\((.*?)\)", line)[0].split(",")
-                
-                if k_name == "arg":
-                    argument = Argument(k_args[0], k_args[1])
-                    self.arguments[Argument.name] = argument
-                
-                elif k_name == "att":
+                if k_name in string.whitespace:
+                    pass
+                else:
+                    k_args = re.findall(rf"{k_name}\((.*?)\)", line)[0].replace(" ", "").split(",")
                     
-                    attacker = argument_hashmap[k_args[0]]
-                    attacked = argument_hashmap[k_args[1]]
-                    self.add_attack(attacker, attacked)
+                    if k_name == "arg":
+                        argument = Argument(k_args[0], k_args[1])
+                        self.arguments[argument.name] = argument
+                    
+                    elif k_name == "att":
+                        attacker = self.arguments[k_args[0]]
+                        attacked = self.arguments[k_args[1]]
+                        self.add_attack(attacker, attacked)
 
 
-                elif k_name == "sup":
-                    supporter = argument_hashmap[k_args[0]]
-                    supported = argument_hashmap[k_args[1]]
-                    self.add_support(attacker, attacked)
+                    elif k_name == "sup":
+                        supporter = self.arguments[k_args[0]]
+                        supported = self.arguments[k_args[1]]
+                        self.add_support(attacker, attacked)
 
-    def addAttack(self, attacker, attacked):
-        self.arguments.put(attacker.getName(), attacker);
-        self.arguments[attacker.name]
-		arguments.put(attacked.getName(), attacked);
-		attacked.addAttacker(attacker);
-		attacks.add(new Attack(attacker, attacked));
+
+    def add_attack(self, attacker, attacked):
+        self.arguments[attacker.name] = attacker
+        self.arguments[attacked.name] = attacked
+        attacked.add_attacker(attacker)
+
+        self.attacks.append(Attack(attacker, attacked))
+
+    def add_support(self, supporter, supported):
+        self.arguments[supporter.name] = supporter
+        self.arguments[supported.name] = supported
+        supported.add_supporter(supporter)
+
+        self.supports.append(Support(supporter, supported))
