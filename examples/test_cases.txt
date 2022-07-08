@@ -1,0 +1,4 @@
+invalid BAG function given eg ARFG or ARX
+
+duplicate arg name given in BAG
+

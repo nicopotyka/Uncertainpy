@@ -1,0 +1,24 @@
+arg(Buy, 0.5)
+arg(Sell, 0.5)
+arg(1, 0.8)
+arg(2, 0.7)
+arg(3, 0.3)
+arg(4, 0.9)
+arg(5, 0.9)
+
+att(Buy, Sell)
+
+att(Sell, Buy)
+
+sup(1,Sell)
+
+sup(2,Buy)
+att(2,1)
+
+att(3,2)
+
+att(4,3)
+sup(4,2).
+
+att(5,1).
+sup(5,Buy).
