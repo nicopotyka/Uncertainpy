@@ -13,6 +13,12 @@ class Attack:
     def get_attacked(self):
         return self.attacked
 
+    def __repr__(self) -> str:
+        return f"Attack({self.attacker}, {self.attacked})"
+
+    def __str__(self) -> str:
+        return f"Attack by {self.attacker} to {self.attacked}"
+
 class Support:
     def __init__(self, supporter, supported) -> None:
         self.supporter = supporter
@@ -26,7 +32,7 @@ class Support:
 
 class Argument:
     def __init__(self, name, initial_weight, strength=None, attackers=[], supporters=[]) -> None:
-        self.name= name
+        self.name = name
         self.initial_weight = initial_weight
         self.strength = strength
         self.attackers = attackers
@@ -43,6 +49,12 @@ class Argument:
         
     def add_supporter(self, supporter):
         self.supporters.append(supporter)
+    
+    def __repr__(self) -> str:
+        return f"Argument {self.name}: initial weight {self.initial_weight}, strength {self.strength}, attackers {self.attackers}, supporters {self.supporters}"
+
+    def __str__(self) -> str:
+        return f"Argument({self.name}, {self.initial_weight}, {self.strength}, {self.attackers}, {self.supporters})"
 
 class BAG:
     # {Name: Argument}
@@ -90,3 +102,9 @@ class BAG:
         supported.add_supporter(supporter)
 
         self.supports.append(Support(supporter, supported))
+
+    def __str__(self) -> str:
+        return f"BAG set to read from {self.path} with arguments: {self.arguments}, attacks: {self.attacks} and supports: {self.supports}"
+
+    def __repr__(self) -> str:
+        return f"BAG({self.path}) Arguments: {self.arguments} Attacks: {self.attacks} Supports: {self.supports}"
