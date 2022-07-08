@@ -1,2 +1,2 @@
-def solve(system, delta, epsilon, verbose=True):
-    pass
+def solve(model, delta, epsilon, verbose=True):
+    print("depracated")
