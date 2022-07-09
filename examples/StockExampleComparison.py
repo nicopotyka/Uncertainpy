@@ -11,6 +11,10 @@ models.append(arg.systems.QuadraticEnergyModel())
 models.append(arg.systems.ContinuousModularModel(arg.aggregation.SumAggregation(), arg.influence.QuadraticMaximumInfluence(conservativeness=1)))
 models.append(arg.systems.ContinuousEulerBasedModel())
 models.append(arg.systems.ContinuousModularModel(arg.aggregation.SumAggregation(), arg.influence.EulerBasedInfluence()))
+models.append(arg.systems.ContinuousDFQuADModel())
+models.append(arg.systems.ContinuousModularModel(arg.aggregation.ProductAggregation(), arg.influence.LinearInfluence(conservativeness=1)))
+models.append(arg.systems.ContinuousSquaredDFQuADModel())
+models.append(arg.systems.SquaredEnergyModel())
 
 for model in models:
     BAG = arg.BAG("./BAG/stock_example.bag")
