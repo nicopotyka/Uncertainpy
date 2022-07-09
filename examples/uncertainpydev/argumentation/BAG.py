@@ -36,8 +36,6 @@ class BAG:
                         supported = self.arguments[k_args[1]]
                         self.add_support(supporter, supported)
             
-            print()
-
     def add_attack(self, attacker, attacked):
         self.arguments[attacker.name] = attacker
         self.arguments[attacked.name] = attacked
