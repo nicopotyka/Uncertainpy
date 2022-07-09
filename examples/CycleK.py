@@ -24,7 +24,7 @@ for i in range(N):
         BAG.add_support(b[i], c[j])
         BAG.add_attack(c[j], a)
 
-model.approximator = arg.approximations.PlottingRK4(model)
+model.approximator = arg.approximators.RK4(model)
 model.BAG = BAG
 result = model.solve(DELTA, EPSILON, True, True)
 

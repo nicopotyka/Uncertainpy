@@ -19,7 +19,7 @@ models.append(arg.systems.SquaredEnergyModel())
 for model in models:
     BAG = arg.BAG("./BAG/stock_example.bag")
     BAG.reset_strength_values()
-    model.approximator = arg.approximations.PlottingRK4(model)
+    model.approximator = arg.approximators.RK4(model)
     model.BAG = BAG
 
     result = model.solve(delta=DELTA, epsilon=EPSILON, verbose=True, generate_plot=True)

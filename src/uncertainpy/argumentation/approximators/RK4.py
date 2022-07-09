@@ -1,7 +1,7 @@
-from .Approximations import Approximations
+from .Approximators import Approximators
 
 
-class PlottingRK4(Approximations):
+class RK4(Approximators):
     def __init__(self, ads, time=0, arguments=[], argument_strength=[], attacker=[], supporter=[], name="") -> None:
         super().__init__(ads, time, arguments, argument_strength, attacker, supporter)
         self.name = "RK4"

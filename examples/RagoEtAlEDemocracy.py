@@ -5,7 +5,7 @@ DELTA = 10e-2
 EPSILON = 10e-4
 
 model = arg.systems.QuadraticEnergyModel()
-model.approximator = arg.approximations.PlottingRK4(model)
+model.approximator = arg.approximators.RK4(model)
 model.BAG = arg.BAG("./BAG/RagoEtAlEDemocracy.bag")
 
 result = model.solve(DELTA, EPSILON, True, True)

@@ -1,4 +1,4 @@
-class Approximations:
+class Approximators:
     graph_data = {}
 
     def __init__(self, ads, time=0, arguments=[], argument_strength=[], attacker=[], supporter=[], name="") -> None:
