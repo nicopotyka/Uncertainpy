@@ -8,8 +8,8 @@ class Models:
         self.supporter = supporter
         self.name = name
 
-    def solve(self, delta, epsilon, verbose=True):
-        result = self.approximator.approximate_solution(delta, epsilon, verbose)
+    def solve(self, delta, epsilon, verbose=True, generate_plot=False):
+        result = self.approximator.approximate_solution(delta, epsilon, verbose, generate_plot)
         return result
         
     def __repr__(self, name) -> str:

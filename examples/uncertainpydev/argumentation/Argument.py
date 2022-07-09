@@ -1,5 +1,5 @@
 class Argument:
-    def __init__(self, name, initial_weight, strength, attackers, supporters) -> None:
+    def __init__(self, name, initial_weight, strength=None, attackers=None, supporters=None):
         self.name = name
         self.initial_weight = initial_weight
         self.strength = strength
@@ -8,6 +8,12 @@ class Argument:
 
         if strength is None:
             self.strength = initial_weight
+
+        if attackers is None:
+            self.attackers = []
+        
+        if supporters is None:
+            self.supporters = []
 
     def get_name(self):
         return self.name

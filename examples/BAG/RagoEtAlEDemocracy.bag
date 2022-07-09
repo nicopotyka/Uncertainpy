@@ -1,0 +1,24 @@
+arg(A1, 0.5).
+arg(A2, 0.5).
+arg(P1, 0.7).
+arg(P2, 0.5).
+arg(P3, 0.9).
+arg(C1, 0.2).
+arg(C2, 0.2).
+arg(C3, 0.6).
+arg(C4, 0.5).
+
+
+att(C1, A2).
+
+att(C2, P2).
+
+att(C3, P2).
+
+att(C4, P2).
+
+sup(P1, A1).
+
+sup(P2, A1).
+
+sup(P3, A2).

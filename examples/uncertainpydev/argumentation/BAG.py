@@ -12,35 +12,37 @@ class BAG:
     attacks = []
     supports = []
 
-    def __init__(self, path) -> None:
+    def __init__(self, path=None):
         self.path = path
 
-        with open(os.path.abspath(path), "r") as f:
-            for line in f.readlines():
-                k_name = line.split("(")[0]
-                if k_name in string.whitespace:
-                    pass
-                else:
-                    k_args = re.findall(rf"{k_name}\((.*?)\)", line)[0].replace(" ", "").split(",")
-                    if k_name == "arg":
-                        argument = Argument(k_args[0], float(k_args[1]), None, [], [])
-                        self.arguments[argument.name] = argument
+        if (path is None):
+            pass
+        else:
+            with open(os.path.abspath(path), "r") as f:
+                for line in f.readlines():
+                    k_name = line.split("(")[0]
+                    if k_name in string.whitespace:
+                        pass
+                    else:
+                        k_args = re.findall(rf"{k_name}\((.*?)\)", line)[0].replace(" ", "").split(",")
+                        if k_name == "arg":
+                            argument = Argument(k_args[0], float(k_args[1]), None, [], [])
+                            self.arguments[argument.name] = argument
 
-                    elif k_name == "att":
-                        attacker = self.arguments[k_args[0]]
-                        attacked = self.arguments[k_args[1]]
-                        self.add_attack(attacker, attacked)
+                        elif k_name == "att":
+                            attacker = self.arguments[k_args[0]]
+                            attacked = self.arguments[k_args[1]]
+                            self.add_attack(attacker, attacked)
 
-                    elif k_name == "sup":
-                        supporter = self.arguments[k_args[0]]
-                        supported = self.arguments[k_args[1]]
-                        self.add_support(supporter, supported)
-            
+                        elif k_name == "sup":
+                            supporter = self.arguments[k_args[0]]
+                            supported = self.arguments[k_args[1]]
+                            self.add_support(supporter, supported)
+
     def add_attack(self, attacker, attacked):
         self.arguments[attacker.name] = attacker
         self.arguments[attacked.name] = attacked
         attacked.add_attacker(attacker)
-
 
         self.attacks.append(Attack(attacker, attacked))
 

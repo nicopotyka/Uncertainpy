@@ -1,4 +1,6 @@
 class Approximations:
+    graph_data = {}
+
     def __init__(self, ads, time=0, arguments=[], argument_strength=[], attacker=[], supporter=[], name="") -> None:
         self.ads = ads
         self.time = time
@@ -49,15 +51,30 @@ class Approximations:
     def perform_iteration(delta, epsilon):
         return None
 
-    def approximate_solution(self, delta, epsilon, verbose):
+    def initialise_graph_data(self):
+        for argument in self.ads.arguments:
+            self.graph_data[argument.name] = [(0, argument.initial_weight)]
+
+    def update_graph_data(self, time):
+        for z, argument in enumerate(self.ads.arguments):
+            self.graph_data[argument.name].append((time, self.ads.argument_strength[z]))
+
+    def approximate_solution(self, delta, epsilon, verbose=False, generate_plot=False):
         self.initialise_arrays()
 
+        if generate_plot:
+            self.initialise_graph_data()
+
         time = 0
-        time_limit = 200
+        time_limit = 99999999999
         max_derivative = 0
+
         while True:
             max_derivative = self.perform_iteration(delta, epsilon)
             time += delta
+
+            if generate_plot:
+                self.update_graph_data(time)
 
             if(max_derivative < epsilon or time >= time_limit):
                 break
@@ -67,5 +84,5 @@ class Approximations:
         if (verbose):
             print_args = '\n'.join([str(x) for x in self.ads.arguments])
             print(f"{self.ads.name}, {self.ads.approximator.name}\nTime: {time}\n{print_args}\n")
-        
+
         return max_derivative
