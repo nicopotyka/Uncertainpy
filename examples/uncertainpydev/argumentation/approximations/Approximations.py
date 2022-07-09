@@ -43,8 +43,8 @@ class Approximations:
         self.ads.supporter = supporter
 
     def rewrite_arrays(self):
-        for i in range(len(self.arguments)):
-            self.arguments[i].strength = self.argument_strength[i]
+        for i in range(len(self.ads.arguments)):
+            self.ads.arguments[i].strength = self.ads.argument_strength[i]
 
     def perform_iteration(delta, epsilon):
         return None
