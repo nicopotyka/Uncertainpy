@@ -1,6 +1,6 @@
 class Models:
-    def __init__(self, bag=None, approximator=None, aggregation=None, influence=None, arguments=[], argument_strength=[], attacker=[], supporter=[], name="") -> None:
-        self.bag = bag
+    def __init__(self, BAG=None, approximator=None, aggregation=None, influence=None, arguments=[], argument_strength=[], attacker=[], supporter=[], name="") -> None:
+        self.BAG = BAG
         self.approximator = approximator
         self.aggregation = aggregation
         self.influence = influence
@@ -15,7 +15,7 @@ class Models:
         return result
 
     def __repr__(self, name) -> str:
-        return f"{name}({self.bag}, {self.approximator}, {self.arguments}, {self.argument_strength}, {self.attacker}, {self.supporter})"
+        return f"{name}({self.BAG}, {self.approximator}, {self.arguments}, {self.argument_strength}, {self.attacker}, {self.supporter})"
 
     def __str__(self, name) -> str:
-        return f"{name} - BAG: {self.bag}, Approximator: {self.approximator}, Arguments: {self.arguments}, Argument strength: {self.argument_strength}, Attacker: {self.attacker}, Supporter: {self.supporter})"
+        return f"{name} - BAG: {self.BAG}, Approximator: {self.approximator}, Arguments: {self.arguments}, Argument strength: {self.argument_strength}, Attacker: {self.attacker}, Supporter: {self.supporter})"

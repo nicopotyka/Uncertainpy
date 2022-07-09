@@ -2,8 +2,8 @@ from .Models import Models
 
 
 class ContinuousDFQuADModel(Models):
-    def __init__(self, aggregation=None, influence=None, bag=None, approximator=None, arguments=..., argument_strength=..., attacker=..., supporter=..., name="") -> None:
-        super().__init__(bag, approximator, aggregation, influence, arguments, argument_strength, attacker, supporter, name)
+    def __init__(self, aggregation=None, influence=None, BAG=None, approximator=None, arguments=..., argument_strength=..., attacker=..., supporter=..., name="") -> None:
+        super().__init__(BAG, approximator, aggregation, influence, arguments, argument_strength, attacker, supporter, name)
         self.name = __class__.__name__
 
     def compute_derivative_at(self, state):
