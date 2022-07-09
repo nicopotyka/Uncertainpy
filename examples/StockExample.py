@@ -1,4 +1,4 @@
-import uncertainpydev.argumentation as arg
+import uncertainpy.argumentation as arg
 
 model = arg.systems.QuadraticEnergyModel()
 model.approximator = arg.approximators.RK4(model)

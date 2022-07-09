@@ -1,6 +1,6 @@
-import uncertainpydev.argumentation as arg
-from uncertainpydev.argumentation import Argument
-from uncertainpydev.argumentation.graphing import graph
+import uncertainpy.argumentation as arg
+from uncertainpy.argumentation import Argument
+from uncertainpy.argumentation.graphing import graph
 
 DELTA = 10e-2
 EPSILON = 10e-4

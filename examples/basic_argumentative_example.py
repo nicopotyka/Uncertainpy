@@ -1,4 +1,4 @@
-import uncertainpydev.argumentation as arg
+import uncertainpy.argumentation as arg
 
 
 arg_system = arg.system()

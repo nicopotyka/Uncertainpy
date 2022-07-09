@@ -2,6 +2,13 @@ from matplotlib import pyplot as plt
 
 
 def graph(model, delta, epsilon, title="Untitled graph"):
+
+    if (type(delta) != float and type(delta) != int):
+        raise TypeError("delta must be a float or integer")
+
+    if (type(epsilon) != float and type(epsilon) != int):
+        raise TypeError("epsilon must be a float or integer")
+
     fig, ax = plt.subplots()
     for x in model.approximator.graph_data:
         x_values = [x[0] for x in model.approximator.graph_data[x]]
