@@ -53,6 +53,10 @@ class BAG:
 
         self.supports.append(Support(supporter, supported))
 
+    def reset_strength_values(self):
+        for a in list(self.arguments.values()):
+            a.strength = a.initial_weight
+
     def get_arguments(self):
         return list(self.arguments.values())
 

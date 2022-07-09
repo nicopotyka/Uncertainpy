@@ -40,3 +40,6 @@ class PlottingRK4(Approximations):
             self.ads.argument_strength[i] += delta * d
 
         return max_derivative
+
+    def __str__(self) -> str:
+        return __class__.__name__

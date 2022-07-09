@@ -1,6 +1,7 @@
 from matplotlib import pyplot as plt
 
-def graph(model, delta, epsilon):
+
+def graph(model, delta, epsilon, title="Untitled graph"):
     fig, ax = plt.subplots()
     for x in model.approximator.graph_data:
         x_values = [x[0] for x in model.approximator.graph_data[x]]
@@ -9,7 +10,7 @@ def graph(model, delta, epsilon):
 
     ax.set_xlabel('Time (t)')  # Add an x-label to the axes.
     ax.set_ylabel('Strength (t)')  # Add a y-label to the axes.
-    ax.set_title(f"Evolution Qudaratic Energy Model, RK4, d={delta}, e={epsilon}")  # Add a title to the axes.
+    ax.set_title(title)  # Add a title to the axes.
     ax.legend()  # Add a legend.
 
     return plt

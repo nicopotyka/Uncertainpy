@@ -1,7 +1,7 @@
 from .Models import Models
 
 
-class QuadraticEnergyModel(Models):
+class ContinuousModularModel(Models):
     def __init__(self, aggregation=None, influence=None, bag=None, approximator=None, arguments=..., argument_strength=..., attacker=..., supporter=..., name="") -> None:
         super().__init__(bag, approximator, aggregation, influence, arguments, argument_strength, attacker, supporter, name)
         self.name = __class__.__name__
@@ -10,23 +10,10 @@ class QuadraticEnergyModel(Models):
         derivatives = []
 
         for i in range(len(self.arguments)):
-            energy = 0
-            for s in self.supporter[i]:
-                energy += state[s]
-
-            for a in self.attacker[i]:
-                energy -= state[a]
-
-            weight = self.arguments[i].get_initial_weight()
-            derivative = weight
-
-            if energy > 0:
-                derivative += (1-weight) * (energy**2) / (1+(energy**2))
-
-            else:
-                derivative -= weight * (energy**2) / (1+(energy**2))
-
+            aggregate_strength = self.aggregation.aggregate_strength(self.attacker[i], self.supporter[i], state)
+            derivative = self.influence.compute_strength(self.arguments[i].initial_weight, aggregate_strength)
             derivative -= state[i]
+
             derivatives.append(derivative)
 
         return derivatives
