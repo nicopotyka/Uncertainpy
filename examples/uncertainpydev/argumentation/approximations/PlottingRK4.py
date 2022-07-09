@@ -1,9 +1,10 @@
 from .Approximations import Approximations
 
 
-class RK4(Approximations):
-    def __init__(self, ads, time=0, arguments=[], argument_strength=[], attacker=[], supporter=[]) -> None:
+class PlottingRK4(Approximations):
+    def __init__(self, ads, time=0, arguments=[], argument_strength=[], attacker=[], supporter=[], name="") -> None:
         super().__init__(ads, time, arguments, argument_strength, attacker, supporter)
+        self.name = "RK4"
 
     def perform_iteration(self, delta, epsilon):
 
@@ -17,13 +18,13 @@ class RK4(Approximations):
 
         y3 = []
         for i in range(len(self.ads.arguments)):
-            y3.append(self.argument_strength[i] + delta / 2 * k2[i])
+            y3.append(self.ads.argument_strength[i] + delta / 2 * k2[i])
 
         k3 = self.ads.compute_derivative_at(y3)
 
         y4 = []
         for i in range(len(self.ads.arguments)):
-            y4.append(self.argument_strength[i] + delta * k3[i])
+            y4.append(self.ads.argument_strength[i] + delta * k3[i])
 
         k4 = self.ads.compute_derivative_at(y4)
 
@@ -36,8 +37,6 @@ class RK4(Approximations):
             if abs_derivative > max_derivative:
                 max_derivative = abs_derivative
 
-            self.argument_strength[i] += delta * d
+            self.ads.argument_strength[i] += delta * d
 
         return max_derivative
-    
-    

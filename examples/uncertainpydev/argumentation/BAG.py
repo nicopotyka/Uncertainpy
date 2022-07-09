@@ -22,9 +22,8 @@ class BAG:
                     pass
                 else:
                     k_args = re.findall(rf"{k_name}\((.*?)\)", line)[0].replace(" ", "").split(",")
-
                     if k_name == "arg":
-                        argument = Argument(k_args[0], float(k_args[1]))
+                        argument = Argument(k_args[0], float(k_args[1]), None, [], [])
                         self.arguments[argument.name] = argument
 
                     elif k_name == "att":
@@ -35,12 +34,15 @@ class BAG:
                     elif k_name == "sup":
                         supporter = self.arguments[k_args[0]]
                         supported = self.arguments[k_args[1]]
-                        self.add_support(attacker, attacked)
+                        self.add_support(supporter, supported)
+            
+            print()
 
     def add_attack(self, attacker, attacked):
         self.arguments[attacker.name] = attacker
         self.arguments[attacked.name] = attacked
         attacked.add_attacker(attacker)
+
 
         self.attacks.append(Attack(attacker, attacked))
 

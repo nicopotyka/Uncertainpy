@@ -1,5 +1,5 @@
 class Argument:
-    def __init__(self, name, initial_weight, strength=None, attackers=[], supporters=[]) -> None:
+    def __init__(self, name, initial_weight, strength, attackers, supporters) -> None:
         self.name = name
         self.initial_weight = initial_weight
         self.strength = strength
@@ -11,7 +11,7 @@ class Argument:
 
     def get_name(self):
         return self.name
-    
+
     def add_attacker(self, attacker):
         self.attackers.append(attacker)
 
@@ -25,4 +25,4 @@ class Argument:
         return f"Argument {self.name}: initial weight {self.initial_weight}, strength {self.strength}, attackers {self.attackers}, supporters {self.supporters}"
 
     def __str__(self) -> str:
-        return f"Argument({self.name}, {self.initial_weight}, {self.strength}, {self.attackers}, {self.supporters})"
+        return f"Argument(name={self.name}, weight={self.initial_weight}, strength={self.strength})"

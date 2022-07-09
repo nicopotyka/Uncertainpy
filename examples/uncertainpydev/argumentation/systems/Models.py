@@ -9,8 +9,9 @@ class Models:
         self.name = name
 
     def solve(self, delta, epsilon, verbose=True):
-        self.approximator.approximate_solution(delta, epsilon, verbose)
-
+        result = self.approximator.approximate_solution(delta, epsilon, verbose)
+        return result
+        
     def __repr__(self, name) -> str:
         return f"{name}({self.bag}, {self.approximator}, {self.arguments}, {self.argument_strength}, {self.attacker}, {self.supporter})"
 
