@@ -1,5 +1,5 @@
-from .ProductAggregation.py import *
-from SumAggregation.py import *
+from .ProductAggregation import *
+from .SumAggregation import *
 from .QuadraticMaximumInfluence import *
 from .EulerBasedInfluence import *
 from .LinearInfluence import *

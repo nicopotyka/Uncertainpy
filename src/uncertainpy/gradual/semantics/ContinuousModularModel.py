@@ -1,7 +1,7 @@
-from .semantics import Model
+from .Model import Model
 
 
-class ContinuousModularModel(Models):
+class ContinuousModularModel(Model):
     def __init__(self, aggregation=None, influence=None, BAG=None, approximator=None, arguments=..., argument_strength=..., attacker=..., supporter=..., name="") -> None:
         super().__init__(BAG, approximator, aggregation, influence, arguments, argument_strength, attacker, supporter, name)
         self.name = __class__.__name__

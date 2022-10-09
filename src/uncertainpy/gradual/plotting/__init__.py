@@ -1,1 +1,1 @@
-from .plotting import *
+from .strengthplot import *

@@ -1,7 +1,7 @@
-from .Algorithms import Approximators
+from .Approximator import Approximator
 
 
-class RK4(Approximators):
+class RK4(Approximator):
     def __init__(self, ads, time=0, arguments=[], argument_strength=[], attacker=[], supporter=[], name="") -> None:
         super().__init__(ads, time, arguments, argument_strength, attacker, supporter)
         self.name = "RK4"
