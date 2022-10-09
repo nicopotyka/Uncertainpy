@@ -1,4 +1,4 @@
-from .Models import Models
+from .semantics import Model
 
 
 class ContinuousDFQuADModel(Models):

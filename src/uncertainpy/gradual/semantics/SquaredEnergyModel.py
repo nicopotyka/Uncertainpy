@@ -1,7 +1,7 @@
-from .Models import Models
+from .semantics import Model
 
 
-class ContinuousModularModel(Models):
+class SquaredEnergyModel(Models):
     def __init__(self, aggregation=None, influence=None, BAG=None, approximator=None, arguments=..., argument_strength=..., attacker=..., supporter=..., name="") -> None:
         super().__init__(BAG, approximator, aggregation, influence, arguments, argument_strength, attacker, supporter, name)
         self.name = __class__.__name__
@@ -10,10 +10,24 @@ class ContinuousModularModel(Models):
         derivatives = []
 
         for i in range(len(self.arguments)):
-            aggregate_strength = self.aggregation.aggregate_strength(self.attacker[i], self.supporter[i], state)
-            derivative = self.influence.compute_strength(self.arguments[i].initial_weight, aggregate_strength)
-            derivative -= state[i]
+            energy = 0
 
+            for s in self.supporter[i]:
+                energy += state[s]**2
+
+            for a in self.attacker[i]:
+                energy -= state[a]**2
+
+            weight = self.arguments[i].initial_weight
+
+            derivative = weight
+
+            if energy > 0:
+                derivative += (1 - weight) * (energy / (1 + energy))
+            elif energy < 0:
+                derivative += weight * (energy / (1 - energy))
+
+            derivative -= state[i]
             derivatives.append(derivative)
 
         return derivatives

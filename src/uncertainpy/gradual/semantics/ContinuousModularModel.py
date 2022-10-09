@@ -1,7 +1,7 @@
-from .Models import Models
+from .semantics import Model
 
 
-class ContinuousSquaredDFQuADModel(Models):
+class ContinuousModularModel(Models):
     def __init__(self, aggregation=None, influence=None, BAG=None, approximator=None, arguments=..., argument_strength=..., attacker=..., supporter=..., name="") -> None:
         super().__init__(BAG, approximator, aggregation, influence, arguments, argument_strength, attacker, supporter, name)
         self.name = __class__.__name__
@@ -10,26 +10,10 @@ class ContinuousSquaredDFQuADModel(Models):
         derivatives = []
 
         for i in range(len(self.arguments)):
-
-            support_energy = 1
-            for a in self.attacker[i]:
-                support_energy *= (1-state[a]) * (1-state[a])
-
-            attack_energy = 1
-            for s in self.supporter[i]:
-                attack_energy *= (1-state[s])*(1-state[s])
-
-            geometric_energy = support_energy - attack_energy
-
-            weight = self.arguments[i].initial_weight
-            derivative = weight
-
-            if geometric_energy > 0:
-                derivative += (1-weight) * geometric_energy
-            elif geometric_energy < 0:
-                derivative += weight * geometric_energy
-
+            aggregate_strength = self.aggregation.aggregate_strength(self.attacker[i], self.supporter[i], state)
+            derivative = self.influence.compute_strength(self.arguments[i].initial_weight, aggregate_strength)
             derivative -= state[i]
+
             derivatives.append(derivative)
 
         return derivatives

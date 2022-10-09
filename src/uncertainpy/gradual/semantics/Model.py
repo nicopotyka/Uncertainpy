@@ -1,4 +1,4 @@
-class Models:
+class Model:
     def __init__(self, BAG=None, approximator=None, aggregation=None, influence=None, arguments=[], argument_strength=[], attacker=[], supporter=[], name="") -> None:
         self.BAG = BAG
         self.approximator = approximator

@@ -1,8 +1,7 @@
-import math
-from .Models import Models
+from .semantics import Model
 
 
-class ContinuousEulerBasedModel(Models):
+class QuadraticEnergyModel(Models):
     def __init__(self, aggregation=None, influence=None, BAG=None, approximator=None, arguments=..., argument_strength=..., attacker=..., supporter=..., name="") -> None:
         super().__init__(BAG, approximator, aggregation, influence, arguments, argument_strength, attacker, supporter, name)
         self.name = __class__.__name__
@@ -12,17 +11,22 @@ class ContinuousEulerBasedModel(Models):
 
         for i in range(len(self.arguments)):
             energy = 0
-
             for s in self.supporter[i]:
                 energy += state[s]
 
             for a in self.attacker[i]:
                 energy -= state[a]
 
-            weight = self.arguments[i].initial_weight
-            derivative = 1 - (1-weight**2) / (1 + weight * math.exp(energy))
-            derivative -= state[i]
+            weight = self.arguments[i].get_initial_weight()
+            derivative = weight
 
+            if energy > 0:
+                derivative += (1-weight) * (energy**2) / (1+(energy**2))
+
+            else:
+                derivative -= weight * (energy**2) / (1+(energy**2))
+
+            derivative -= state[i]
             derivatives.append(derivative)
 
         return derivatives

@@ -1,4 +1,4 @@
-from .Approximators import Approximators
+from .Algorithms import Approximators
 
 
 class RK4(Approximators):

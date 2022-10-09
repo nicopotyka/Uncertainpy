@@ -1,7 +1,7 @@
-from .Models import Models
+from .semantics import Model
 
 
-class QuadraticEnergyModel(Models):
+class ContinuousSquaredDFQuADModel(Models):
     def __init__(self, aggregation=None, influence=None, BAG=None, approximator=None, arguments=..., argument_strength=..., attacker=..., supporter=..., name="") -> None:
         super().__init__(BAG, approximator, aggregation, influence, arguments, argument_strength, attacker, supporter, name)
         self.name = __class__.__name__
@@ -10,21 +10,24 @@ class QuadraticEnergyModel(Models):
         derivatives = []
 
         for i in range(len(self.arguments)):
-            energy = 0
-            for s in self.supporter[i]:
-                energy += state[s]
 
+            support_energy = 1
             for a in self.attacker[i]:
-                energy -= state[a]
+                support_energy *= (1-state[a]) * (1-state[a])
 
-            weight = self.arguments[i].get_initial_weight()
+            attack_energy = 1
+            for s in self.supporter[i]:
+                attack_energy *= (1-state[s])*(1-state[s])
+
+            geometric_energy = support_energy - attack_energy
+
+            weight = self.arguments[i].initial_weight
             derivative = weight
 
-            if energy > 0:
-                derivative += (1-weight) * (energy**2) / (1+(energy**2))
-
-            else:
-                derivative -= weight * (energy**2) / (1+(energy**2))
+            if geometric_energy > 0:
+                derivative += (1-weight) * geometric_energy
+            elif geometric_energy < 0:
+                derivative += weight * geometric_energy
 
             derivative -= state[i]
             derivatives.append(derivative)

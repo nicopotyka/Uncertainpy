@@ -1,7 +1,8 @@
-from .Models import Models
+import math
+from .semantics import Model
 
 
-class SquaredEnergyModel(Models):
+class ContinuousEulerBasedModel(Models):
     def __init__(self, aggregation=None, influence=None, BAG=None, approximator=None, arguments=..., argument_strength=..., attacker=..., supporter=..., name="") -> None:
         super().__init__(BAG, approximator, aggregation, influence, arguments, argument_strength, attacker, supporter, name)
         self.name = __class__.__name__
@@ -13,21 +14,15 @@ class SquaredEnergyModel(Models):
             energy = 0
 
             for s in self.supporter[i]:
-                energy += state[s]**2
+                energy += state[s]
 
             for a in self.attacker[i]:
-                energy -= state[a]**2
+                energy -= state[a]
 
             weight = self.arguments[i].initial_weight
-
-            derivative = weight
-
-            if energy > 0:
-                derivative += (1 - weight) * (energy / (1 + energy))
-            elif energy < 0:
-                derivative += weight * (energy / (1 - energy))
-
+            derivative = 1 - (1-weight**2) / (1 + weight * math.exp(energy))
             derivative -= state[i]
+
             derivatives.append(derivative)
 
         return derivatives
