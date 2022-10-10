@@ -46,8 +46,16 @@ class BAG:
         if type(attacked) != Argument:
             raise TypeError("attacked must be of type Argument")
 
-        self.arguments[attacker.name] = attacker
-        self.arguments[attacked.name] = attacked
+        if attacker.name in self.arguments:
+            attacker = self.arguments[attacker.name]
+        else:
+            self.arguments[attacker.name] = attacker
+
+        if attacked.name in self.arguments:
+            attacked = self.arguments[attacked.name]
+        else:
+            self.arguments[attacked.name] = attacked
+            
         attacked.add_attacker(attacker)
 
         self.attacks.append(Attack(attacker, attacked))
@@ -59,8 +67,16 @@ class BAG:
         if type(supported) != Argument:
             raise TypeError("supported must be of type Argument")
 
-        self.arguments[supporter.name] = supporter
-        self.arguments[supported.name] = supported
+        if supporter.name in self.arguments:
+            supporter = self.arguments[supporter.name]
+        else:
+            self.arguments[supporter.name] = supporter
+
+        if supported.name in self.arguments:
+            supported = self.arguments[supported.name]
+        else:
+            self.arguments[supported.name] = supported
+
         supported.add_supporter(supporter)
 
         self.supports.append(Support(supporter, supported))
