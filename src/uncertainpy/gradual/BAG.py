@@ -7,12 +7,13 @@ from .Attack import Attack
 
 
 class BAG:
-    # {Name: Argument}
-    arguments = {}
-    attacks = []
-    supports = []
 
     def __init__(self, path=None):
+    
+        self.arguments = {}
+        self.attacks = []
+        self.supports = []
+        
         self.path = path
 
         if (path is None):
