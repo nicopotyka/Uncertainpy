@@ -1,7 +1,7 @@
 from matplotlib import pyplot as plt
 
 
-def strength_plot(model, delta, epsilon, title="Untitled graph"):
+def strengthplot(model, delta, epsilon, title="Untitled graph"):
 
     if (type(delta) != float and type(delta) != int):
         raise TypeError("delta must be a float or integer")
