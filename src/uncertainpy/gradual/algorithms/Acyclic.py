@@ -2,10 +2,13 @@
 def computeStrengthValues(bag, agg_f, inf_f):
     """
     Computes strength values in acyclic BAGs using a topological ordering and forward propagation
-    of the base scores.
+    of the base scores. If the graph contains cycles, None will be returned
     """
     
     order = computeTopOrder(bag)
+    if order == None:
+        return None
+    
     strength = {arg:arg.initial_weight for arg in order}
     
     for arg in order:
@@ -22,7 +25,7 @@ def computeStrengthValues(bag, agg_f, inf_f):
     
 def computeTopOrder(bag):
     """
-    Compute topological order for given bag or return False if bag is cyclic.
+    Compute topological order for given bag or return None if bag is cyclic.
     """
 
     args = bag.arguments.values()
@@ -69,7 +72,7 @@ def computeTopOrder(bag):
     #if node is missing in order, the bag must be cyclic
     if len(order) != len(args):   
         print(f"Graph contains cycles. Found partial topological order {[arg.name for arg in order]}.")
-        return False
+        return None
           
     return order
     
