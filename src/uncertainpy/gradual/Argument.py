@@ -29,7 +29,10 @@ class Argument:
 
     def get_initial_weight(self):
         return self.initial_weight
-
+        
+    def reset_initial_weight(self, weight):
+        self.initial_weight = weight
+        
     def __repr__(self) -> str:
         return f"Argument {self.name}: initial weight {self.initial_weight}, strength {self.strength}, attackers {self.attackers}, supporters {self.supporters}"
 
