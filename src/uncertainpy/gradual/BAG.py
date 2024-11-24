@@ -27,7 +27,7 @@ class BAG:
                     else:
                         k_args = re.findall(rf"{k_name}\((.*?)\)", line)[0].replace(" ", "").split(",")
                         if k_name == "arg":
-                            argument = Argument(k_args[0], float(k_args[1]), None, [], [])
+                            argument = Argument(k_args[0], float(k_args[1]))
                             self.arguments[argument.name] = argument
 
                         elif k_name == "att":
@@ -40,7 +40,7 @@ class BAG:
                             supported = self.arguments[k_args[1]]
                             self.add_support(supporter, supported)
 
-    def add_attack(self, attacker, attacked):
+    def add_attack(self, attacker, attacked, attack_weight=1):
         if type(attacker) != Argument:
             raise TypeError("attacker must be of type Argument")
 
@@ -57,11 +57,11 @@ class BAG:
         else:
             self.arguments[attacked.name] = attacked
             
-        attacked.add_attacker(attacker)
+        attacked.add_attacker(attacker, attack_weight)
 
-        self.attacks.append(Attack(attacker, attacked))
+        self.attacks.append(Attack(attacker, attacked, attack_weight))
 
-    def add_support(self, supporter, supported):
+    def add_support(self, supporter, supported, support_weight=1):
         if type(supporter) != Argument:
             raise TypeError("supporter must be of type Argument")
 
@@ -78,9 +78,9 @@ class BAG:
         else:
             self.arguments[supported.name] = supported
 
-        supported.add_supporter(supporter)
+        supported.add_supporter(supporter, support_weight)
 
-        self.supports.append(Support(supporter, supported))
+        self.supports.append(Support(supporter, supported, support_weight))
 
     def reset_strength_values(self):
         for a in list(self.arguments.values()):

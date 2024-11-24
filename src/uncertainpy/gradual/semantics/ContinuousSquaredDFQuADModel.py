@@ -7,21 +7,21 @@ class ContinuousSquaredDFQuADModel(Model):
         self.name = __class__.__name__
 
     def compute_derivative_at(self, state):
-        derivatives = []
+        derivatives = {}
 
-        for i in range(len(self.arguments)):
+        for arg in self.arguments:
 
             support_energy = 1
-            for a in self.attacker[i]:
+            for a in self.attacker[arg]:
                 support_energy *= (1-state[a]) * (1-state[a])
 
             attack_energy = 1
-            for s in self.supporter[i]:
+            for s in self.supporter[arg]:
                 attack_energy *= (1-state[s])*(1-state[s])
 
             geometric_energy = support_energy - attack_energy
 
-            weight = self.arguments[i].initial_weight
+            weight = arg.initial_weight
             derivative = weight
 
             if geometric_energy > 0:
@@ -29,8 +29,8 @@ class ContinuousSquaredDFQuADModel(Model):
             elif geometric_energy < 0:
                 derivative += weight * geometric_energy
 
-            derivative -= state[i]
-            derivatives.append(derivative)
+            derivative -= state[arg]
+            derivatives[arg] = derivative
 
         return derivatives
 

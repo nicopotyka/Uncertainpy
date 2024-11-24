@@ -13,19 +13,19 @@ class Argument:
             self.strength = initial_weight
 
         if attackers is None:
-            self.attackers = []
-        
+            self.attackers = {}
+
         if supporters is None:
-            self.supporters = []
+            self.supporters = {}
 
     def get_name(self):
         return self.name
 
-    def add_attacker(self, attacker):
-        self.attackers.append(attacker)
+    def add_attacker(self, attacker, attack_weight=1):
+        self.attackers[attacker] = attack_weight
 
-    def add_supporter(self, supporter):
-        self.supporters.append(supporter)
+    def add_supporter(self, supporter, support_weight=1):
+        self.supporters[supporter] = support_weight
 
     def get_initial_weight(self):
         return self.initial_weight

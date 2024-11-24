@@ -7,18 +7,18 @@ class SquaredEnergyModel(Model):
         self.name = __class__.__name__
 
     def compute_derivative_at(self, state):
-        derivatives = []
+        derivatives = {}
 
-        for i in range(len(self.arguments)):
+        for arg in self.arguments:
             energy = 0
 
-            for s in self.supporter[i]:
+            for s in self.supporter[arg]:
                 energy += state[s]**2
 
-            for a in self.attacker[i]:
+            for a in self.attacker[arg]:
                 energy -= state[a]**2
 
-            weight = self.arguments[i].initial_weight
+            weight = arg.initial_weight
 
             derivative = weight
 
@@ -27,8 +27,8 @@ class SquaredEnergyModel(Model):
             elif energy < 0:
                 derivative += weight * (energy / (1 - energy))
 
-            derivative -= state[i]
-            derivatives.append(derivative)
+            derivative -= state[arg]
+            derivatives[arg] = derivative
 
         return derivatives
 
