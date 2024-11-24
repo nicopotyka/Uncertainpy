@@ -15,10 +15,9 @@ class Approximator:
         arguments = []
         argument_strength = {}
 
-        for z, a in enumerate(argument_set):
+        for a in argument_set:
             arguments.append(a)
             argument_strength[a] = a.strength
-            # arg_to_index[a] = z
 
         attacker = {}
         supporter = {}
