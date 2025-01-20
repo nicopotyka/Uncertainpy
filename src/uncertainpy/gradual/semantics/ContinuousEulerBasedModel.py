@@ -8,22 +8,24 @@ class ContinuousEulerBasedModel(Model):
         self.name = __class__.__name__
 
     def compute_derivative_at(self, state):
-        derivatives = []
+        derivatives = {}
 
-        for i in range(len(self.arguments)):
+        for arg in self.arguments:
             energy = 0
 
-            for s in self.supporter[i]:
+
+            for s in self.supporter[arg]:
                 energy += state[s]
 
-            for a in self.attacker[i]:
+            for a in self.attacker[arg]:
                 energy -= state[a]
 
-            weight = self.arguments[i].initial_weight
+            weight = arg.initial_weight
             derivative = 1 - (1-weight**2) / (1 + weight * math.exp(energy))
-            derivative -= state[i]
+            derivative -= state[arg]
 
-            derivatives.append(derivative)
+
+            derivatives[arg] = derivative
 
         return derivatives
 
@@ -32,3 +34,4 @@ class ContinuousEulerBasedModel(Model):
 
     def __str__(self) -> str:
         return super().__str__(__name__)
+    

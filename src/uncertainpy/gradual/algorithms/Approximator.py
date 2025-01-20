@@ -1,7 +1,7 @@
 class Approximator:
     graph_data = {}
 
-    def __init__(self, ads, time=0, arguments=[], argument_strength=[], attacker=[], supporter=[], name="") -> None:
+    def __init__(self, ads, time=0, arguments=[], argument_strength={}, attacker={}, supporter={}, name="") -> None:
         self.ads = ads
         self.time = time
         self.arguments = arguments
@@ -12,32 +12,29 @@ class Approximator:
 
     def initialise_arrays(self):
         argument_set = list(self.ads.BAG.arguments.values())
-        arg_to_index = {}
-
         arguments = []
-        argument_strength = []
+        argument_strength = {}
 
-        for z, a in enumerate(argument_set):
+        for a in argument_set:
             arguments.append(a)
-            argument_strength.append(a.strength)
-            arg_to_index[a] = z
+            argument_strength[a] = a.strength
 
         attacker = {}
         supporter = {}
 
-        for z, a in enumerate(argument_set):
+        for a in argument_set:
 
-            attacker_child = []
+            attacker_child = {}
             for b in a.attackers:
-                attacker_child.append(arg_to_index[b])
+                attacker_child[b] = a.attackers[b]
 
-            attacker[z] = attacker_child
+            attacker[a] = attacker_child
 
-            supporter_child = []
+            supporter_child = {}
             for b in a.supporters:
-                supporter_child.append(arg_to_index[b])
+                supporter_child[b] = a.supporters[b]
 
-            supporter[z] = supporter_child
+            supporter[a] = supporter_child
 
         self.ads.arguments = arguments
         self.ads.argument_strength = argument_strength
@@ -45,8 +42,8 @@ class Approximator:
         self.ads.supporter = supporter
 
     def rewrite_arrays(self):
-        for i in range(len(self.ads.arguments)):
-            self.ads.arguments[i].strength = self.ads.argument_strength[i]
+        for a in self.ads.arguments:
+            a.strength = self.ads.argument_strength[a]
 
     def perform_iteration(delta, epsilon):
         return None
@@ -56,8 +53,8 @@ class Approximator:
             self.graph_data[argument.name] = [(0, argument.initial_weight)]
 
     def update_graph_data(self, time):
-        for z, argument in enumerate(self.ads.arguments):
-            self.graph_data[argument.name].append((time, self.ads.argument_strength[z]))
+        for argument in self.ads.arguments:
+            self.graph_data[argument.name].append((time, self.ads.argument_strength[argument]))
 
     def approximate_solution(self, delta, epsilon, verbose=False, generate_plot=False):
         self.initialise_arrays()

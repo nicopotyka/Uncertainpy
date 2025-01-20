@@ -7,17 +7,18 @@ class QuadraticEnergyModel(Model):
         self.name = __class__.__name__
 
     def compute_derivative_at(self, state):
-        derivatives = []
 
-        for i in range(len(self.arguments)):
+        derivatives = {}
+
+        for arg in self.arguments:
             energy = 0
-            for s in self.supporter[i]:
+            for s in self.supporter[arg]:
                 energy += state[s]
 
-            for a in self.attacker[i]:
+            for a in self.attacker[arg]:
                 energy -= state[a]
 
-            weight = self.arguments[i].get_initial_weight()
+            weight = arg.get_initial_weight()
             derivative = weight
 
             if energy > 0:
@@ -26,8 +27,8 @@ class QuadraticEnergyModel(Model):
             else:
                 derivative -= weight * (energy**2) / (1+(energy**2))
 
-            derivative -= state[i]
-            derivatives.append(derivative)
+            derivative -= state[arg]
+            derivatives[arg] = derivative
 
         return derivatives
 

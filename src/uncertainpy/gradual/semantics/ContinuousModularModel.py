@@ -7,14 +7,13 @@ class ContinuousModularModel(Model):
         self.name = __class__.__name__
 
     def compute_derivative_at(self, state):
-        derivatives = []
+        derivatives = {}
+        for a in self.arguments:
+            aggregate_strength = self.aggregation.aggregate_strength(self.attacker[a], self.supporter[a], state)
+            derivative = self.influence.compute_strength(a.initial_weight, aggregate_strength)
+            derivative -= state[a]
 
-        for i in range(len(self.arguments)):
-            aggregate_strength = self.aggregation.aggregate_strength(self.attacker[i], self.supporter[i], state)
-            derivative = self.influence.compute_strength(self.arguments[i].initial_weight, aggregate_strength)
-            derivative -= state[i]
-
-            derivatives.append(derivative)
+            derivatives[a] = derivative
 
         return derivatives
 

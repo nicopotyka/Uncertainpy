@@ -5,10 +5,12 @@ class SumAggregation:
     def aggregate_strength(self, attackers, supporters, state):
         aggregate = 0
         for a in attackers:
-            aggregate -= state[a]
+            attack_weight = attackers[a]
+            aggregate -= state[a] * attack_weight
 
         for s in supporters:
-            aggregate += state[s]
+            support_weight = supporters[s]
+            aggregate += state[s] * support_weight
 
         return aggregate
     
