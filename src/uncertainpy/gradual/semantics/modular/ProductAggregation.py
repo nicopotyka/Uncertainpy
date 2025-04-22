@@ -3,13 +3,14 @@ class ProductAggregation:
         pass
 
     def aggregate_strength(self, attackers, supporters, state):
+
         support_value = 1
         for a in attackers:
-            support_value *= 1-state[a]
+            support_value *= 1 - state[a] * attackers[a]
 
         attack_value = 1
         for s in supporters:
-            attack_value *= 1-state[s]
+            attack_value *= 1-state[s] * supporters[s]
 
         return support_value - attack_value
 
