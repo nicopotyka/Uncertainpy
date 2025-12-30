@@ -1,0 +1,22 @@
+[build-system]
+requires = ["setuptools>=65", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+include = ["uncertainpy*"]
+
+[project]
+name = "Uncertainpy"
+version = "0.1.0"
+description = "Uncertainpy is a Python library for computational argumentation."
+readme = "README.md"
+requires-python = ">=3.11"
+authors = [
+  { name = "Nico Potyka" },
+]
+
+dependencies = [
+  "numpy",
+  "scikit-learn",
+]
